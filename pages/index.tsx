@@ -1,20 +1,19 @@
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import type { NextPage } from "next";
 
 interface StyleProps {
   isGrey: boolean;
 }
 
-const useStyles = makeStyles<Theme, StyleProps>(() => ({
-  root: ({ isGrey }) => ({
-    color: isGrey ? "grey" : "white",
-  }),
-}));
+const StyledDiv = styled("div")<StyleProps>(
+  { shouldForwardProp: (prop: any) => prop !== "isGrey" },
+  (props: any) => ({
+    backgroundColor: props.isGrey,
+  })
+);
 
 const Home: NextPage = () => {
-  const classes = useStyles({ isGrey: true });
-  return <div className={classes.root}>hello world</div>;
+  return <StyledDiv isGrey={true}>hello world</StyledDiv>;
 };
 
 export default Home;
